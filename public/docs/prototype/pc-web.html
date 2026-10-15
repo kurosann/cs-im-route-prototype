@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>聚合客服 · 统一工作台原型</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body { font-family: Inter, -apple-system, "PingFang SC", "Noto Sans SC", sans-serif; }
+      .page { display: none; }
+      .page.active { display: block; }
+      .nav-item.active { background: #2563eb; color: #fff; }
+      .nav-item.active .nav-desc { color: rgba(255,255,255,.75); }
+      .nav-item.active svg { color: #fff; }
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+    </style>
+  </head>
+  <body class="h-screen bg-slate-50 text-slate-900">
+    <div class="flex h-full">
+      <aside class="hidden w-64 shrink-0 border-r border-slate-200 bg-white lg:flex lg:flex-col">
+        <div class="flex h-16 items-center gap-3 border-b border-slate-100 px-6">
+          <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 21 8v8l-9 5-9-5V8Z" /></svg>
+          </div>
+          <div>
+            <div class="text-sm font-semibold">聚合客服</div>
+            <div class="text-xs text-slate-500">统一工作台</div>
+          </div>
+        </div>
+
+        <nav id="sidebar-nav" class="flex-1 space-y-1 overflow-y-auto p-4">
+          <p class="px-2 pb-2 text-xs font-medium text-slate-400">客服工作</p>
+          <a class="nav-item active flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100" data-page="overview">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h7V3H3Zm0 9h7v-6H3Zm11 0h7V3h-7Z"/></svg>
+            <span>总览</span>
+          </a>
+          <a class="nav-item flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100" data-page="conversations">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v10H8l-4 4Z"/></svg>
+            <span>会话</span>
+          </a>
+          <a class="nav-item flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100" data-page="chat">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 1 0-3.1 6.3L21 20Z"/></svg>
+            <span>聊天室</span>
+          </a>
+
+          <p class="px-2 pb-2 pt-5 text-xs font-medium text-slate-400">接入配置</p>
+          <a class="nav-item flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100" data-page="apps">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 3 7v10l9 4 9-4V7Z"/></svg>
+            <span>业务渠道</span>
+          </a>
+          <a class="nav-item flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100" data-page="channels">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h11M4 12h7M4 18h11M18 8v8l3-4Z"/></svg>
+            <span>转发渠道</span>
+          </a>
+          <a class="nav-item flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100" data-page="ai">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18M7 7l10 10M17 7 7 17"/></svg>
+            <span>AI 客服</span>
+          </a>
+          <a class="nav-item flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100" data-page="webhook">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h8M12 8v8m8 2a8 8 0 1 0-16 0"/></svg>
+            <span>Webhook</span>
+          </a>
+          <a class="nav-item flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100" data-page="logs">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
+            <span>消息日志</span>
+          </a>
+
+          <p class="px-2 pb-2 pt-5 text-xs font-medium text-slate-400">系统</p>
+          <a class="nav-item flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100" data-page="settings">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7-3a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2.1-1.2L14 3h-4l-.5 2.7a7 7 0 0 0-2.1 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2.1 1.2L10 21h4l.5-2.7a7 7 0 0 0 2.1-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2Z"/></svg>
+            <span>设置</span>
+          </a>
+        </nav>
+      </aside>
+
+      <main class="flex min-w-0 flex-1 flex-col">
+        <header class="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 lg:px-8">
+          <div class="flex items-center gap-3">
+            <button class="rounded-lg border border-slate-200 px-3 py-1.5 text-sm lg:hidden">菜单</button>
+            <h1 id="page-title" class="text-base font-semibold">总览</h1>
+            <span class="hidden rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-500 md:inline">当前租户：橙子科技</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="hidden md:flex h-9 w-64 items-center gap-2 rounded-lg border border-slate-200 px-3">
+              <svg class="h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+              <input class="w-full text-sm outline-none" placeholder="搜索会话 / 客户 / 消息 ID" />
+            </div>
+            <div class="flex items-center gap-2 rounded-full bg-slate-100 p-1">
+              <button class="role-btn rounded-full bg-white px-3 py-1.5 text-xs font-medium shadow-sm" data-role="agent">坐席</button>
+              <button class="role-btn rounded-full px-3 py-1.5 text-xs text-slate-500" data-role="developer">开发者</button>
+              <button class="role-btn rounded-full px-3 py-1.5 text-xs text-slate-500" data-role="admin">管理员</button>
+            </div>
+          </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-4 lg:p-8">
+          <!-- 总览 -->
+          <section id="overview" class="page active space-y-6">
+            <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              <div class="rounded-2xl border border-slate-200 bg-white p-5"><p class="text-sm text-slate-500">待人工</p><p class="mt-2 text-3xl font-semibold">18</p><p class="mt-1 text-xs text-red-500">5 条超过 3 分钟未响应</p></div>
+              <div class="rounded-2xl border border-slate-200 bg-white p-5"><p class="text-sm text-slate-500">今日消息</p><p class="mt-2 text-3xl font-semibold">12,470</p><p class="mt-1 text-xs text-slate-500">较昨日 +8.2%</p></div>
+              <div class="rounded-2xl border border-slate-200 bg-white p-5"><p class="text-sm text-slate-500">AI 已处理</p><p class="mt-2 text-3xl font-semibold">8,930</p><p class="mt-1 text-xs text-slate-500">占比 71.7%</p></div>
+              <div class="rounded-2xl border border-slate-200 bg-white p-5"><p class="text-sm text-slate-500">投递失败</p><p class="mt-2 text-3xl font-semibold">7</p><p class="mt-1 text-xs text-amber-600">3 条等待自动重试</p></div>
+            </div>
+
+            <div class="grid gap-4 xl:grid-cols-3">
+              <div class="rounded-2xl border border-slate-200 bg-white p-5 xl:col-span-2">
+                <div class="flex items-center justify-between"><h3 class="font-semibold">消息趋势</h3><span class="text-xs text-slate-500">最近 7 天</span></div>
+                <div class="mt-6 flex h-52 items-end gap-3">
+                  <div class="flex-1 rounded-t-lg bg-blue-100" style="height:44%"></div><div class="flex-1 rounded-t-lg bg-blue-200" style="height:62%"></div><div class="flex-1 rounded-t-lg bg-blue-150 bg-blue-200" style="height:52%"></div><div class="flex-1 rounded-t-lg bg-blue-300" style="height:78%"></div><div class="flex-1 rounded-t-lg bg-blue-400" style="height:70%"></div><div class="flex-1 rounded-t-lg bg-blue-500" style="height:88%"></div><div class="flex-1 rounded-t-lg bg-blue-600" style="height:100%"></div>
+                </div>
+              </div>
+              <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                <h3 class="font-semibold">服务健康</h3>
+                <div class="mt-4 space-y-4 text-sm">
+                  <div class="flex items-center justify-between"><span>在线业务渠道</span><span class="font-medium text-emerald-600">6 / 8</span></div>
+                  <div class="flex items-center justify-between"><span>可用转发渠道</span><span class="font-medium text-emerald-600">5 / 6</span></div>
+                  <div class="flex items-center justify-between"><span>WebSocket 连接</span><span class="font-medium">1,284</span></div>
+                  <div class="flex items-center justify-between"><span>消息平均延迟</span><span class="font-medium">210ms</span></div>
+                  <div class="flex items-center justify-between"><span>Outbox 积压</span><span class="font-medium text-amber-600">24</span></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 会话 -->
+          <section id="conversations" class="page space-y-4">
+            <div class="flex flex-wrap items-center gap-3">
+              <div class="flex rounded-lg border border-slate-200 bg-white p-1"><button class="rounded-md bg-blue-600 px-3 py-1.5 text-sm text-white">全部</button><button class="px-3 py-1.5 text-sm text-slate-500">待人工</button><button class="px-3 py-1.5 text-sm text-slate-500">AI 处理中</button><button class="px-3 py-1.5 text-sm text-slate-500">已关闭</button></div>
+              <div class="flex h-9 w-52 items-center rounded-lg border border-slate-200 bg-white px-3"><input class="w-full text-sm outline-none" placeholder="按客户或渠道筛选" /></div>
+            </div>
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-slate-50 text-xs text-slate-500"><tr><th class="px-5 py-3">客户</th><th class="px-5 py-3">业务渠道</th><th class="px-5 py-3">最近消息</th><th class="px-5 py-3">状态</th><th class="px-5 py-3">负责人</th><th class="px-5 py-3"></th></tr></thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr><td class="px-5 py-4"><div class="font-medium">李然</div><div class="text-xs text-slate-500">ID: cus_38291</div></td><td class="px-5 py-4">WhatsApp</td><td class="px-5 py-4">订单退款还有多久处理？</td><td class="px-5 py-4"><span class="rounded-full bg-red-50 px-2 py-1 text-xs text-red-600">待人工</span></td><td class="px-5 py-4">未认领</td><td class="px-5 py-4 text-right"><button class="rounded-lg bg-blue-600 px-3 py-1.5 text-xs text-white">进入聊天室</button></td></tr>
+                  <tr><td class="px-5 py-4"><div class="font-medium">Maya</div><div class="text-xs text-slate-500">ID: cus_77210</div></td><td class="px-5 py-4">Telegram</td><td class="px-5 py-4">请问发票可以重发吗？</td><td class="px-5 py-4"><span class="rounded-full bg-emerald-50 px-2 py-1 text-xs text-emerald-600">AI 已处理</span></td><td class="px-5 py-4">AI</td><td class="px-5 py-4 text-right"><button class="rounded-lg border border-slate-200 px-3 py-1.5 text-xs">查看</button></td></tr>
+                  <tr><td class="px-5 py-4"><div class="font-medium">老王</div><div class="text-xs text-slate-500">ID: cus_12008</div></td><td class="px-5 py-4">Messenger</td><td class="px-5 py-4">客服帮我看看账号被锁了。</td><td class="px-5 py-4"><span class="rounded-full bg-blue-50 px-2 py-1 text-xs text-blue-600">人工处理中</span></td><td class="px-5 py-4">张晓</td><td class="px-5 py-4 text-right"><button class="rounded-lg border border-slate-200 px-3 py-1.5 text-xs">查看</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- 聊天室 -->
+          <section id="chat" class="page">
+            <div class="grid h-[calc(100vh-10rem)] grid-cols-1 overflow-hidden rounded-2xl border border-slate-200 bg-white xl:grid-cols-[320px_1fr_360px]">
+              <div class="hidden border-r border-slate-200 xl:block">
+                <div class="flex h-14 items-center justify-between border-b border-slate-100 px-4"><span class="font-medium">会话</span><button class="rounded-md border border-slate-200 px-2 py-1 text-xs">筛选</button></div>
+                <div class="divide-y divide-slate-100">
+                  <div class="bg-blue-50 px-4 py-4"><div class="flex items-center justify-between"><span class="text-sm font-medium">李然</span><span class="text-xs text-slate-500">12:32</span></div><p class="mt-1 truncate text-sm text-slate-500">订单退款还有多久处理？</p><div class="mt-2 flex gap-2"><span class="rounded-full bg-red-100 px-2 py-0.5 text-[11px] text-red-600">待人工</span><span class="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] text-slate-500">iOS App</span></div></div>
+                  <div class="px-4 py-4"><div class="flex items-center justify-between"><span class="text-sm font-medium">Maya</span><span class="text-xs text-slate-500">12:28</span></div><p class="mt-1 truncate text-sm text-slate-500">请问发票可以重发吗？</p><span class="mt-2 inline-block rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] text-emerald-600">AI 已处理</span></div>
+                </div>
+              </div>
+
+              <div class="flex min-w-0 flex-col">
+                <div class="flex h-14 items-center justify-between border-b border-slate-100 px-5"><div><div class="font-medium">李然</div><div class="text-xs text-slate-500">WhatsApp · 最近 3 分钟活跃</div></div><div class="flex gap-2"><button class="rounded-lg border border-slate-200 px-3 py-1.5 text-xs">认领</button><button class="rounded-lg bg-blue-600 px-3 py-1.5 text-xs text-white">人工接管</button></div></div>
+                <div class="flex-1 space-y-4 overflow-y-auto bg-slate-50 p-5">
+                  <div class="text-center text-xs text-slate-400">AI 已处理 3 轮，客户再次询问后触发转人工</div>
+                  <div class="max-w-[72%] rounded-2xl bg-white p-3 text-sm shadow-sm">你好，我昨天申请退款了。</div>
+                  <div class="ml-auto max-w-[72%] rounded-2xl bg-blue-600 p-3 text-sm text-white">已经帮您登记，请在 15:20 前留意到账提醒。</div>
+                  <div class="max-w-[72%] rounded-2xl bg-white p-3 text-sm shadow-sm">订单退款还有多久处理？</div>
+                  <div class="max-w-[80%] rounded-2xl border border-sky-100 bg-sky-50 p-3 text-sm"><div class="mb-2 inline-flex items-center gap-1 rounded-full bg-white px-2 py-0.5 text-[11px] text-sky-600">AI 建议</div>当前订单已进入财务复核，预计 1-2 个工作日到账。需要我继续跟进吗？</div>
+                </div>
+                <div class="border-t border-slate-100 p-4">
+                  <div class="rounded-xl border border-slate-200 bg-white p-3"><textarea rows="3" class="w-full resize-none text-sm outline-none" placeholder="回复客户..."></textarea><div class="mt-3 flex items-center justify-between"><div class="flex gap-2 text-slate-500"><button class="rounded-md p-1.5 hover:bg-slate-100">📎</button><button class="rounded-md p-1.5 hover:bg-slate-100">📷</button><button class="rounded-md p-1.5 hover:bg-slate-100">⚡</button></div><div class="flex gap-2"><button class="rounded-lg border border-slate-200 px-3 py-1.5 text-xs">转发</button><button class="rounded-lg bg-blue-600 px-4 py-1.5 text-xs text-white">发送</button></div></div></div>
+                </div>
+              </div>
+
+              <div class="hidden border-l border-slate-200 p-5 xl:block">
+                <h3 class="font-semibold">客户信息</h3>
+                <div class="mt-4 flex items-center gap-3"><div class="flex h-11 w-11 items-center justify-center rounded-full bg-slate-100 font-medium">李</div><div><div class="text-sm font-medium">李然</div><div class="text-xs text-slate-500">注册 328 天 · 会员</div></div></div>
+                <div class="mt-5 space-y-3 text-sm"><div class="flex justify-between"><span class="text-slate-500">客户 ID</span><span>cus_38291</span></div><div class="flex justify-between"><span class="text-slate-500">业务渠道</span><span>WhatsApp</span></div><div class="flex justify-between"><span class="text-slate-500">历史会话</span><span>4</span></div><div class="flex justify-between"><span class="text-slate-500">当前状态</span><span class="text-red-600">待人工</span></div></div>
+                <div class="mt-6 rounded-xl border border-amber-100 bg-amber-50 p-4"><div class="text-sm font-medium">风险提示</div><p class="mt-1 text-xs text-amber-700">客户最近提交过退款申请，注意回复口径。</p></div>
+                <div class="mt-6 space-y-2"><h4 class="text-sm font-medium">转发去向</h4><div class="flex flex-wrap gap-2"><span class="rounded-full bg-slate-100 px-2 py-1 text-xs">Telegram</span><span class="rounded-full bg-slate-100 px-2 py-1 text-xs">飞书</span><span class="rounded-full bg-slate-100 px-2 py-1 text-xs">业务系统</span></div></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- App -->
+          <section id="apps" class="page space-y-4">
+            <div class="flex flex-wrap justify-between gap-3"><div><h2 class="text-lg font-semibold">业务渠道</h2><p class="text-sm text-slate-500">WhatsApp、Telegram、Messenger 等消息来源渠道。</p></div><button class="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white">手动创建 App</button></div>
+            <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              <div class="rounded-2xl border border-slate-200 bg-white p-5"><div class="flex items-start justify-between"><div><h3 class="font-medium">WhatsApp</h3><p class="text-xs text-slate-500">app_wa_102</p></div><span class="rounded-full bg-emerald-50 px-2 py-1 text-xs text-emerald-600">在线</span></div><div class="mt-4 space-y-2 text-sm"><div class="flex justify-between"><span class="text-slate-500">最近心跳</span><span>4 秒前</span></div><div class="flex justify-between"><span class="text-slate-500">今日会话</span><span>312</span></div></div><div class="mt-5 flex gap-2"><button class="rounded-lg border border-slate-200 px-3 py-1.5 text-xs">查看凭据</button><button class="rounded-lg border border-slate-200 px-3 py-1.5 text-xs text-red-600">禁用</button></div></div>
+              <div class="rounded-2xl border border-slate-200 bg-white p-5"><div class="flex items-start justify-between"><div><h3 class="font-medium">Telegram</h3><p class="text-xs text-slate-500">app_tg_104</p></div><span class="rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500">离线</span></div><div class="mt-4 space-y-2 text-sm"><div class="flex justify-between"><span class="text-slate-500">最近心跳</span><span>58 秒前</span></div><div class="flex justify-between"><span class="text-slate-500">今日会话</span><span>108</span></div></div><div class="mt-5 flex gap-2"><button class="rounded-lg bg-blue-600 px-3 py-1.5 text-xs text-white">上线</button><button class="rounded-lg border border-slate-200 px-3 py-1.5 text-xs">详情</button></div></div>
+              <div class="rounded-2xl border border-dashed border-slate-300 bg-white p-5"><div class="flex h-full flex-col items-center justify-center text-center"><div class="text-sm font-medium">等待业务前端接入</div><p class="mt-1 max-w-56 text-xs text-slate-500">使用注册接口获得 appId，再用租约心跳上报在线状态。</p><button class="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-xs text-white">复制接入指引</button></div></div>
+            </div>
+          </section>
+
+          <!-- 转发渠道 -->
+          <section id="channels" class="page space-y-4">
+            <div class="flex flex-wrap justify-between gap-3"><div><h2 class="text-lg font-semibold">转发渠道</h2><p class="text-sm text-slate-500">客服核心把消息转发到的后端目标。</p></div><button class="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white">接入渠道</button></div>
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white"><table class="w-full text-left text-sm"><thead class="bg-slate-50 text-xs text-slate-500"><tr><th class="px-5 py-3">渠道</th><th class="px-5 py-3">账户</th><th class="px-5 py-3">状态</th><th class="px-5 py-3">今日投递</th><th class="px-5 py-3">失败率</th><th class="px-5 py-3"></th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-5 py-4 font-medium">Telegram</td><td class="px-5 py-4">@orange_support_bot</td><td class="px-5 py-4"><span class="rounded-full bg-emerald-50 px-2 py-1 text-xs text-emerald-600">可用</span></td><td class="px-5 py-4">4,201</td><td class="px-5 py-4">0.2%</td><td class="px-5 py-4 text-right text-blue-600">配置</td></tr><tr><td class="px-5 py-4 font-medium">WhatsApp</td><td class="px-5 py-4">orange-support</td><td class="px-5 py-4"><span class="rounded-full bg-red-50 px-2 py-1 text-xs text-red-600">凭证失效</span></td><td class="px-5 py-4">2,140</td><td class="px-5 py-4">6.8%</td><td class="px-5 py-4 text-right text-blue-600">修复</td></tr><tr><td class="px-5 py-4 font-medium">飞书</td><td class="px-5 py-4">客服转发群</td><td class="px-5 py-4"><span class="rounded-full bg-emerald-50 px-2 py-1 text-xs text-emerald-600">可用</span></td><td class="px-5 py-4">1,780</td><td class="px-5 py-4">0%</td><td class="px-5 py-4 text-right text-blue-600">配置</td></tr></tbody></table></div>
+          </section>
+
+          <!-- AI -->
+          <section id="ai" class="page grid gap-4 lg:grid-cols-3">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 lg:col-span-2"><h3 class="font-semibold">AI 决策策略</h3><p class="mt-1 text-sm text-slate-500">一期只做三态：回复、忽略、转人工。</p><div class="mt-5 space-y-4"><div class="rounded-xl border border-slate-200 p-4"><div class="flex items-center justify-between"><span class="text-sm font-medium">订单退款</span><span class="rounded-full bg-blue-50 px-2 py-1 text-xs text-blue-600">reply</span></div><p class="mt-2 text-sm text-slate-500">命中退款知识库，直接返回预计到账时间。</p></div><div class="rounded-xl border border-slate-200 p-4"><div class="flex items-center justify-between"><span class="text-sm font-medium">账号被盗</span><span class="rounded-full bg-red-50 px-2 py-1 text-xs text-red-600">escalate</span></div><p class="mt-2 text-sm text-slate-500">高优问题，立即通知人工客服接管。</p></div><div class="rounded-xl border border-slate-200 p-4"><div class="flex items-center justify-between"><span class="text-sm font-medium">广告消息</span><span class="rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-600">ignore</span></div><p class="mt-2 text-sm text-slate-500">不创建人工任务，仅保留消息日志。</p></div></div></div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-5"><h3 class="font-semibold">知识库</h3><div class="mt-4 space-y-3"><div class="rounded-xl bg-slate-50 p-4 text-sm"><div class="font-medium">退款规则 v3</div><div class="mt-1 text-xs text-slate-500">更新于 2 天前 · 128 条问答</div></div><div class="rounded-xl bg-slate-50 p-4 text-sm"><div class="font-medium">会员权益</div><div class="mt-1 text-xs text-slate-500">更新于 7 天前 · 64 条问答</div></div></div><button class="mt-5 w-full rounded-lg bg-blue-600 py-2 text-sm text-white">添加知识</button></div>
+          </section>
+
+          <!-- Webhook -->
+          <section id="webhook" class="page space-y-4">
+            <div class="flex flex-wrap justify-between gap-3"><div><h2 class="text-lg font-semibold">Webhook</h2><p class="text-sm text-slate-500">事件体不携带 tenantId，访问权限由签名和 AccessToken 控制。</p></div><button class="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white">新建 Webhook</button></div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-5"><div class="rounded-xl border border-slate-200 p-4"><div class="flex flex-wrap items-center justify-between gap-3"><div><div class="font-medium">订单系统事件接收</div><div class="text-xs text-slate-500">https://api.orange.com/cs/events</div></div><div class="flex items-center gap-2"><span class="rounded-full bg-emerald-50 px-2 py-1 text-xs text-emerald-600">启用</span><button class="rounded-lg border border-slate-200 px-3 py-1.5 text-xs">测试</button></div></div><div class="mt-4 flex flex-wrap gap-2 text-xs"><span class="rounded-full bg-slate-100 px-2 py-1">message.created</span><span class="rounded-full bg-slate-100 px-2 py-1">conversation.escalated</span><span class="rounded-full bg-slate-100 px-2 py-1">delivery.failed</span><span class="rounded-full bg-slate-100 px-2 py-1">app.lease.expired</span></div></div></div>
+          </section>
+
+          <!-- 日志 -->
+          <section id="logs" class="page space-y-4">
+            <div class="flex flex-wrap gap-3"><button class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm">全部状态</button><button class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm">最近 24 小时</button><button class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm">搜索 Message ID</button></div>
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white"><table class="w-full text-left text-sm"><thead class="bg-slate-50 text-xs text-slate-500"><tr><th class="px-5 py-3">Message ID</th><th class="px-5 py-3">会话</th><th class="px-5 py-3">方向</th><th class="px-5 py-3">转发渠道</th><th class="px-5 py-3">状态</th><th class="px-5 py-3">时间</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-5 py-4 font-mono text-xs">msg_8f21ac</td><td class="px-5 py-4">conv_221904</td><td class="px-5 py-4">客服 → Telegram</td><td class="px-5 py-4">Telegram</td><td class="px-5 py-4"><span class="rounded-full bg-emerald-50 px-2 py-1 text-xs text-emerald-600">delivered</span></td><td class="px-5 py-4">12:31:08</td></tr><tr><td class="px-5 py-4 font-mono text-xs">msg_7b0c3d</td><td class="px-5 py-4">conv_221901</td><td class="px-5 py-4">客服 → WhatsApp</td><td class="px-5 py-4">WhatsApp</td><td class="px-5 py-4"><span class="rounded-full bg-red-50 px-2 py-1 text-xs text-red-600">failed</span></td><td class="px-5 py-4">12:30:42</td></tr><tr><td class="px-5 py-4 font-mono text-xs">msg_5d91ef</td><td class="px-5 py-4">conv_221900</td><td class="px-5 py-4">客服 → 飞书</td><td class="px-5 py-4">Feishu</td><td class="px-5 py-4"><span class="rounded-full bg-amber-50 px-2 py-1 text-xs text-amber-600">retrying</span></td><td class="px-5 py-4">12:30:12</td></tr></tbody></table></div>
+          </section>
+
+          <!-- 设置 -->
+          <section id="settings" class="page grid gap-4 lg:grid-cols-2">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5"><h3 class="font-semibold">租户信息</h3><div class="mt-4 space-y-4"><label class="block text-sm"><span class="text-slate-500">租户名称</span><input class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" value="橙子科技" /></label><label class="block text-sm"><span class="text-slate-500">默认语言</span><input class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" value="简体中文" /></label><label class="block text-sm"><span class="text-slate-500">会话超时时间</span><input class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" value="30 分钟" /></label></div></div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-5"><h3 class="font-semibold">权限</h3><div class="mt-4 space-y-4"><div class="flex items-center justify-between rounded-xl border border-slate-200 p-4"><div><div class="text-sm font-medium">管理员</div><div class="text-xs text-slate-500">全部配置、告警、租户设置</div></div><span class="text-xs text-slate-400">3 人</span></div><div class="flex items-center justify-between rounded-xl border border-slate-200 p-4"><div><div class="text-sm font-medium">开发者</div><div class="text-xs text-slate-500">App、转发渠道、Webhook、日志</div></div><span class="text-xs text-slate-400">5 人</span></div><div class="flex items-center justify-between rounded-xl border border-slate-200 p-4"><div><div class="text-sm font-medium">坐席</div><div class="text-xs text-slate-500">会话、聊天室、客户详情</div></div><span class="text-xs text-slate-400">22 人</span></div></div></div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const titles = { overview:'总览', conversations:'会话', chat:'聊天室', apps:'业务渠道', channels:'转发渠道', ai:'AI 客服', webhook:'Webhook', logs:'消息日志', settings:'设置' };
+      const rolePages = { agent:['overview','conversations','chat'], developer:['overview','apps','channels','webhook','logs'], admin:['overview','conversations','chat','apps','channels','ai','webhook','logs','settings'] };
+      let currentRole = 'agent';
+      function renderRole() {
+        document.querySelectorAll('.role-btn').forEach(btn => {
+          const active = btn.dataset.role === currentRole;
+          btn.classList.toggle('bg-white', active);
+          btn.classList.toggle('shadow-sm', active);
+          btn.classList.toggle('text-slate-500', !active);
+        });
+        const allowed = rolePages[currentRole];
+        document.querySelectorAll('#sidebar-nav .nav-item').forEach(item => {
+          const visible = allowed.includes(item.dataset.page);
+          item.style.display = visible ? 'flex' : 'none';
+          if (!visible) item.classList.remove('active');
+        });
+        const visibleNav = [...document.querySelectorAll('#sidebar-nav .nav-item')].filter(i => i.style.display !== 'none');
+        if (!visibleNav.some(i => i.classList.contains('active'))) showPage(visibleNav[0].dataset.page);
+      }
+      function showPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.toggle('active', i.dataset.page === id));
+        document.getElementById('page-title').textContent = titles[id] || id;
+        window.scrollTo(0,0);
+      }
+      document.querySelectorAll('.nav-item').forEach(item => item.addEventListener('click', () => showPage(item.dataset.page)));
+      document.querySelectorAll('.role-btn').forEach(item => item.addEventListener('click', () => { currentRole = item.dataset.role; renderRole(); }));
+      renderRole();
+    </script>
+  </body>
+</html>

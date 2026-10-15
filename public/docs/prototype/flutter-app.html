@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>聚合客服 · Flutter App 原型</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body { font-family: Inter, -apple-system, "PingFang SC", "Noto Sans SC", sans-serif; }
+      .phone { width: 390px; height: 780px; }
+      .scroll-hidden::-webkit-scrollbar { display: none; }
+    </style>
+  </head>
+  <body class="min-h-screen bg-slate-100 p-8 text-slate-900">
+    <header class="mx-auto mb-8 max-w-6xl">
+      <h1 class="text-2xl font-semibold">Flutter App 原型</h1>
+      <p class="mt-2 max-w-3xl text-sm text-slate-600">一套 Flutter 代码，覆盖 Android / iOS / Flutter Web。移动端只保留客服值守、服务状态和个人设置，不做完整管理后台。</p>
+    </header>
+
+    <div class="flex flex-wrap items-start justify-center gap-8">
+      <!-- 登录 -->
+      <div class="phone overflow-hidden rounded-[42px] border-8 border-slate-900 bg-slate-50 shadow-2xl">
+        <div class="flex h-full flex-col">
+          <div class="flex items-center justify-between px-6 pt-4 text-xs text-slate-500"><span>9:41</span><span>Flutter Demo</span></div>
+          <div class="flex flex-1 flex-col justify-center p-6">
+            <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-blue-600 text-white"><span class="text-2xl">◎</span></div>
+            <h2 class="mt-8 text-3xl font-semibold">客服值守</h2>
+            <p class="mt-3 text-sm text-slate-500">使用工作台分配的 AccessToken 登录。移动端暂不支持创建租户。</p>
+            <div class="mt-8 space-y-4">
+              <div class="rounded-2xl border border-slate-200 bg-white px-4 py-4"><div class="text-xs text-slate-500">服务地址</div><div class="mt-1 text-sm font-medium">https://cs.orange.com</div></div>
+              <div class="rounded-2xl border border-slate-200 bg-white px-4 py-4"><div class="text-xs text-slate-500">AccessToken</div><div class="mt-1 font-mono text-sm">cs_at_9f82...a71</div></div>
+            </div>
+            <button class="mt-8 rounded-2xl bg-blue-600 py-4 text-sm font-medium text-white">进入工作区</button>
+            <button class="mt-4 rounded-2xl border border-slate-200 bg-white py-4 text-sm text-slate-600">查看接入说明</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 会话列表 -->
+      <div class="phone overflow-hidden rounded-[42px] border-8 border-slate-900 bg-slate-50 shadow-2xl">
+        <div class="flex h-full flex-col">
+          <div class="px-6 pt-4"><div class="flex justify-between text-xs text-slate-500"><span>9:41</span><span>Flutter Demo</span></div></div>
+          <div class="flex items-center justify-between px-6 pt-6"><div><div class="text-xs text-slate-500">橙子科技</div><h2 class="text-2xl font-semibold">值守</h2></div><div class="flex h-10 w-10 items-center justify-center rounded-full bg-white border border-slate-200">🔔</div></div>
+          <div class="mt-5 flex gap-2 px-6"><div class="flex-1 rounded-2xl bg-white border border-slate-200 px-4 py-3"><div class="text-lg font-semibold">18</div><div class="text-xs text-red-500">待人工</div></div><div class="flex-1 rounded-2xl bg-white border border-slate-200 px-4 py-3"><div class="text-lg font-semibold">3</div><div class="text-xs text-slate-500">处理中</div></div><div class="flex-1 rounded-2xl bg-white border border-slate-200 px-4 py-3"><div class="text-lg font-semibold">7</div><div class="text-xs text-amber-600">失败</div></div></div>
+          <div class="mt-6 px-6 text-sm font-medium text-slate-500">会话</div>
+          <div class="mt-3 flex-1 space-y-3 overflow-y-auto px-6 pb-6 scroll-hidden">
+            <div class="rounded-3xl border border-blue-100 bg-white p-4 shadow-sm"><div class="flex items-start justify-between"><div><div class="text-base font-medium">李然</div><div class="mt-0.5 text-xs text-slate-500">WhatsApp · 12:32</div></div><span class="rounded-full bg-red-50 px-2 py-1 text-[11px] text-red-600">待人工</span></div><p class="mt-3 text-sm text-slate-600">订单退款还有多久处理？</p></div>
+            <div class="rounded-3xl border border-slate-200 bg-white p-4"><div class="flex items-start justify-between"><div><div class="text-base font-medium">Maya</div><div class="mt-0.5 text-xs text-slate-500">Telegram · 12:28</div></div><span class="rounded-full bg-emerald-50 px-2 py-1 text-[11px] text-emerald-600">AI 已处理</span></div><p class="mt-3 truncate text-sm text-slate-600">请问发票可以重发吗？</p></div>
+            <div class="rounded-3xl border border-slate-200 bg-white p-4"><div class="flex items-start justify-between"><div><div class="text-base font-medium">老王</div><div class="mt-0.5 text-xs text-slate-500">Messenger · 12:19</div></div><span class="rounded-full bg-blue-50 px-2 py-1 text-[11px] text-blue-600">人工处理中</span></div><p class="mt-3 truncate text-sm text-slate-600">账号被锁了，需要解一下。</p></div>
+          </div>
+          <div class="grid grid-cols-3 border-t border-slate-200 bg-white px-4 py-2 text-center text-xs"><div class="rounded-2xl bg-blue-50 py-3 text-blue-600"><div class="text-lg">💬</div>值守</div><div class="py-3 text-slate-500"><div class="text-lg">📊</div>状态</div><div class="py-3 text-slate-500"><div class="text-lg">👤</div>我的</div></div>
+        </div>
+      </div>
+
+      <!-- 聊天室 -->
+      <div class="phone overflow-hidden rounded-[42px] border-8 border-slate-900 bg-slate-50 shadow-2xl">
+        <div class="flex h-full flex-col">
+          <div class="px-6 pt-4"><div class="flex justify-between text-xs text-slate-500"><span>9:41</span><span>Flutter Demo</span></div></div>
+          <div class="flex items-center gap-3 border-b border-slate-200 bg-white px-5 pb-4 pt-5"><div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-100">李</div><div class="flex-1"><div class="font-medium">李然</div><div class="text-xs text-slate-500">iOS App · 待人工</div></div><button class="rounded-xl border border-slate-200 px-3 py-2 text-xs">详情</button></div>
+          <div class="flex-1 space-y-4 overflow-y-auto p-5 scroll-hidden">
+            <div class="text-center text-xs text-slate-400">今天 12:30</div>
+            <div class="max-w-[78%] rounded-3xl rounded-bl-lg bg-white p-4 text-sm">你好，我昨天申请退款了。</div>
+            <div class="ml-auto max-w-[78%] rounded-3xl rounded-br-lg bg-blue-600 p-4 text-sm text-white">已经帮您登记，请留意到账提醒。</div>
+            <div class="max-w-[78%] rounded-3xl rounded-bl-lg bg-white p-4 text-sm">订单退款还有多久处理？</div>
+            <div class="max-w-[86%] rounded-3xl border border-sky-100 bg-sky-50 p-4 text-sm"><div class="mb-2 inline-flex rounded-full bg-white px-2 py-1 text-[11px] text-sky-600">AI 建议</div>当前订单已进入财务复核，预计 1-2 个工作日到账。</div>
+          </div>
+          <div class="bg-white p-4">
+            <div class="flex items-center gap-2 rounded-3xl bg-slate-50 px-4 py-3"><span class="text-slate-400">＋</span><input class="flex-1 bg-transparent text-sm outline-none" placeholder="回复客户..." value="正在帮您催一下财务复核。" /><span class="text-slate-400">😀</span></div>
+            <div class="mt-3 flex gap-3"><button class="flex-1 rounded-2xl border border-slate-200 bg-white py-3 text-sm text-slate-600">接管</button><button class="flex-1 rounded-2xl bg-blue-600 py-3 text-sm text-white">发送</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 服务状态 -->
+      <div class="phone overflow-hidden rounded-[42px] border-8 border-slate-900 bg-slate-50 shadow-2xl">
+        <div class="flex h-full flex-col">
+          <div class="px-6 pt-4"><div class="flex justify-between text-xs text-slate-500"><span>9:41</span><span>Flutter Demo</span></div></div>
+          <div class="px-6 pt-6"><h2 class="text-2xl font-semibold">服务状态</h2><p class="mt-1 text-sm text-slate-500">移动端只看关键健康度，不做复杂配置。</p></div>
+          <div class="mt-5 flex-1 space-y-4 overflow-y-auto px-6 pb-6 scroll-hidden">
+            <div class="rounded-3xl border border-slate-200 bg-white p-5"><div class="flex items-center justify-between"><span class="text-sm font-medium">在线业务渠道</span><span class="rounded-full bg-emerald-50 px-2 py-1 text-xs text-emerald-600">6 / 8</span></div><div class="mt-4 space-y-3 text-sm"><div class="flex justify-between"><span>WhatsApp</span><span class="text-emerald-600">在线</span></div><div class="flex justify-between"><span>Telegram</span><span class="text-slate-500">离线</span></div><div class="flex justify-between"><span>Messenger</span><span class="text-emerald-600">在线</span></div></div></div>
+            <div class="rounded-3xl border border-slate-200 bg-white p-5"><div class="flex items-center justify-between"><span class="text-sm font-medium">转发渠道</span><span class="rounded-full bg-red-50 px-2 py-1 text-xs text-red-600">1 个异常</span></div><div class="mt-4 space-y-3 text-sm"><div class="flex justify-between"><span>Telegram</span><span class="text-emerald-600">可用</span></div><div class="flex justify-between"><span>WhatsApp</span><span class="text-red-600">凭证失效</span></div><div class="flex justify-between"><span>飞书</span><span class="text-emerald-600">可用</span></div></div></div>
+            <div class="rounded-3xl border border-slate-200 bg-white p-5"><div class="flex items-center justify-between"><span class="text-sm font-medium">失败消息</span><span class="text-xs text-slate-500">7 条</span></div><p class="mt-3 text-sm text-slate-600">msg_7b0c3d 转发 WhatsApp 失败，等待第 3 次重试。</p><button class="mt-4 w-full rounded-2xl bg-blue-600 py-3 text-sm text-white">查看失败详情</button></div>
+          </div>
+          <div class="grid grid-cols-3 border-t border-slate-200 bg-white px-4 py-2 text-center text-xs"><div class="py-3 text-slate-500"><div class="text-lg">💬</div>值守</div><div class="rounded-2xl bg-blue-50 py-3 text-blue-600"><div class="text-lg">📊</div>状态</div><div class="py-3 text-slate-500"><div class="text-lg">👤</div>我的</div></div>
+        </div>
+      </div>
+
+      <!-- 我的 -->
+      <div class="phone overflow-hidden rounded-[42px] border-8 border-slate-900 bg-slate-50 shadow-2xl">
+        <div class="flex h-full flex-col">
+          <div class="px-6 pt-4"><div class="flex justify-between text-xs text-slate-500"><span>9:41</span><span>Flutter Demo</span></div></div>
+          <div class="px-6 pt-8"><div class="rounded-3xl border border-slate-200 bg-white p-6"><div class="flex items-center gap-4"><div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-lg text-white">张</div><div><div class="font-semibold">张晓</div><div class="text-sm text-slate-500">高级坐席 · 橙子科技</div></div></div><div class="mt-5 grid grid-cols-3 text-center"><div><div class="text-lg font-semibold">12</div><div class="text-xs text-slate-500">今日处理</div></div><div><div class="text-lg font-semibold">2m</div><div class="text-xs text-slate-500">平均响应</div></div><div><div class="text-lg font-semibold">96%</div><div class="text-xs text-slate-500">满意度</div></div></div></div></div>
+          <div class="mt-6 flex-1 space-y-3 px-6 pb-6">
+            <div class="rounded-3xl border border-slate-200 bg-white p-5"><div class="text-sm font-medium">值守设置</div><div class="mt-4 space-y-4 text-sm"><div class="flex items-center justify-between"><span>接收新消息通知</span><div class="h-6 w-11 rounded-full bg-blue-600 p-0.5"><div class="h-5 w-5 rounded-full bg-white"></div></div></div><div class="flex items-center justify-between"><span>失败消息提醒</span><div class="h-6 w-11 rounded-full bg-blue-600 p-0.5"><div class="h-5 w-5 rounded-full bg-white"></div></div></div><div class="flex items-center justify-between"><span>AI 建议自动展开</span><div class="h-6 w-11 rounded-full bg-slate-200 p-0.5"><div class="ml-auto h-5 w-5 rounded-full bg-white"></div></div></div></div></div>
+            <div class="rounded-3xl border border-slate-200 bg-white p-5 text-sm"><div class="font-medium">账号</div><div class="mt-4 space-y-4 text-slate-600"><div>角色与权限</div><div>切换工作区</div><div>退出登录</div></div></div>
+          </div>
+          <div class="grid grid-cols-3 border-t border-slate-200 bg-white px-4 py-2 text-center text-xs"><div class="py-3 text-slate-500"><div class="text-lg">💬</div>值守</div><div class="py-3 text-slate-500"><div class="text-lg">📊</div>状态</div><div class="rounded-2xl bg-blue-50 py-3 text-blue-600"><div class="text-lg">👤</div>我的</div></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
