@@ -1,69 +1,55 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function Home() {
+const routes = [
+  { href: "/agent", title: "坐席工作台", description: "会话、聊天室和客户处理。", group: "角色场景" },
+  { href: "/developer", title: "开发者工作台", description: "业务渠道、转发渠道和 Webhook。", group: "角色场景" },
+  { href: "/admin", title: "管理员工作台", description: "总览、配置、告警和设置。", group: "角色场景" },
+  { href: "/overview", title: "总览", description: "核心指标和待处理会话。", group: "PC 场景" },
+  { href: "/conversations", title: "会话", description: "会话列表和状态筛选。", group: "PC 场景" },
+  { href: "/chat", title: "聊天室", description: "消息处理、AI 建议和人工接管。", group: "PC 场景" },
+  { href: "/apps", title: "业务渠道", description: "WhatsApp、Telegram、Messenger 等来源。", group: "PC 场景" },
+  { href: "/channels", title: "转发渠道", description: "消息转发目标和投递状态。", group: "PC 场景" },
+  { href: "/ai", title: "AI 客服", description: "回复、忽略、转人工三态策略。", group: "PC 场景" },
+  { href: "/webhook", title: "Webhook", description: "事件订阅和回调配置。", group: "PC 场景" },
+  { href: "/logs", title: "消息日志", description: "消息投递和失败记录。", group: "PC 场景" },
+  { href: "/settings", title: "设置", description: "租户信息和权限配置。", group: "PC 场景" },
+  { href: "/mobile", title: "移动端原型", description: "Flutter App 的值守、状态和我的。", group: "其他" },
+];
+
+export default function HomePage() {
+  const groups = ["角色场景", "PC 场景", "其他"];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-background p-6 lg:p-10">
+      <div className="mx-auto max-w-6xl">
+        <header className="mb-8">
+          <div className="inline-flex rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700">仅为原型 · 非实际效果图 · v1</div>
+          <h1 className="text-2xl font-semibold">聚合客服原型导航</h1>
+          <p className="mt-2 text-sm text-muted-foreground">这里可以快速跳转到所有 PC 场景和移动端原型。</p>
+        </header>
+
+        <div className="space-y-8">
+          {groups.map((group) => (
+            <section key={group}>
+              <h2 className="mb-3 text-sm font-medium text-muted-foreground">{group}</h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {routes.filter((route) => route.group === group).map((route) => (
+                  <Link key={route.href} href={route.href} className="rounded-xl transition-transform hover:-translate-y-0.5">
+                    <Card className="h-full">
+                      <CardHeader>
+                        <CardTitle className="text-base">{route.title}</CardTitle>
+                        <CardDescription>{route.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent className="text-xs text-muted-foreground">{route.href}</CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }
