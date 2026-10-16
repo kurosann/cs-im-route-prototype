@@ -1,5 +1,4 @@
 export type PageId =
-  | "overview"
   | "conversations"
   | "chat"
   | "apps"
@@ -20,6 +19,8 @@ export type Conversation = {
   status: "waiting" | "ai" | "agent";
   owner: string;
   time: string;
+  unread: number;
+  unreplied: boolean;
   messages: {
     id: string;
     role: "customer" | "agent" | "ai" | "system";
@@ -38,8 +39,9 @@ export const initialConversations: Conversation[] = [
     status: "waiting",
     owner: "未认领",
     time: "12:32",
+    unread: 3,
+    unreplied: true,
     messages: [
-      { id: "m1", role: "system", text: "AI 已处理 3 轮，客户再次询问后触发转人工", time: "12:28" },
       { id: "m2", role: "customer", text: "你好，我昨天申请退款了。", time: "12:29" },
       { id: "m3", role: "ai", text: "已经帮您登记，请在 15:20 前留意到账提醒。", time: "12:30" },
       { id: "m4", role: "customer", text: "订单退款还有多久处理？", time: "12:32" },
@@ -55,6 +57,8 @@ export const initialConversations: Conversation[] = [
     status: "ai",
     owner: "AI",
     time: "12:28",
+    unread: 0,
+    unreplied: false,
     messages: [
       { id: "m1", role: "customer", text: "请问发票可以重发吗？", time: "12:28" },
       { id: "m2", role: "ai", text: "可以，已发送到您的注册邮箱。", time: "12:28" },
@@ -69,6 +73,8 @@ export const initialConversations: Conversation[] = [
     status: "agent",
     owner: "张晓",
     time: "12:19",
+    unread: 1,
+    unreplied: true,
     messages: [
       { id: "m1", role: "customer", text: "账号被锁了，需要解一下。", time: "12:19" },
       { id: "m2", role: "agent", text: "您好，我正在帮您检查账号状态。", time: "12:20" },
@@ -77,13 +83,12 @@ export const initialConversations: Conversation[] = [
 ];
 
 export const rolePages: Record<Role, PageId[]> = {
-  agent: ["overview", "conversations", "chat"],
-  developer: ["overview", "apps", "channels", "webhook", "logs"],
-  admin: ["overview", "conversations", "chat", "apps", "channels", "ai", "webhook", "logs", "settings"],
+  agent: ["conversations", "chat"],
+  developer: ["apps", "channels", "webhook", "logs"],
+  admin: ["conversations", "chat", "apps", "channels", "ai", "webhook", "logs", "settings"],
 };
 
 export const pageTitles: Record<PageId, string> = {
-  overview: "总览",
   conversations: "会话",
   chat: "聊天室",
   apps: "业务渠道",
