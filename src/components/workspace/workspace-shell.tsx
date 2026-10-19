@@ -252,23 +252,23 @@ export function WorkspaceShell({ initialPage = "conversations", initialRole = "a
           {activePage === "apps" && (
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {[
-                { name: "WhatsApp", status: "在线", heartbeat: "4 秒前", conversations: 312 },
-                { name: "Telegram", status: "离线", heartbeat: "58 秒前", conversations: 208 },
-                { name: "Messenger", status: "在线", heartbeat: "12 秒前", conversations: 96 },
+                { name: "官网客服插件", status: "在线", heartbeat: "4 秒前", conversations: 128 },
+                { name: "买家订单中心", status: "在线", heartbeat: "17 秒前", conversations: 86 },
+                { name: "小程序客服", status: "离线", heartbeat: "3 分钟前", conversations: 42 },
               ].map((app) => (
                 <Card key={app.name} className="rounded-3xl border-slate-200/70 shadow-[0_18px_50px_-38px_rgba(15,23,42,0.45)]">
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-3">
                         <div className={cn("flex size-11 items-center justify-center rounded-2xl", app.status === "在线" ? "bg-emerald-50 text-emerald-600" : "bg-slate-100 text-slate-500")}><AppWindow className="size-5" /></div>
-                        <div><CardTitle className="text-base">{app.name}</CardTitle><CardDescription>客服来源</CardDescription></div>
+                        <div><CardTitle className="text-base">{app.name}</CardTitle><CardDescription>客户接入的业务渠道</CardDescription></div>
                       </div>
                       <Badge variant="outline" className={cn("rounded-full", app.status === "在线" ? "border-emerald-200 bg-emerald-50 text-emerald-600" : "border-slate-200 bg-slate-50 text-slate-500")}>{app.status}</Badge>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="rounded-2xl bg-muted/50 p-4 text-sm"><div className="flex justify-between"><span className="text-muted-foreground">最近心跳</span><span>{app.heartbeat}</span></div><div className="mt-2 flex justify-between"><span className="text-muted-foreground">今日会话</span><span>{app.conversations}</span></div></div>
-                    <div className="flex gap-2"><Button variant="outline" size="sm" className="flex-1">查看凭据</Button><Button variant="destructive" size="sm" className="flex-1">{app.status === "在线" ? "禁用" : "上线"}</Button></div>
+                    <div className="flex gap-2"><Button variant="outline" size="sm" className="flex-1">查看密钥</Button><Button variant="destructive" size="sm" className="flex-1">{app.status === "在线" ? "禁用" : "启用"}</Button></div>
                   </CardContent>
                 </Card>
               ))}
@@ -276,7 +276,7 @@ export function WorkspaceShell({ initialPage = "conversations", initialRole = "a
           )}
 
           {activePage === "channels" && (
-            <Card className={v1CardClass}><CardHeader className="pb-4"><CardTitle>转发渠道</CardTitle><CardDescription>客服核心向外投递消息的目标。</CardDescription></CardHeader><CardContent className="p-0"><Table><TableHeader><TableRow><TableHead>渠道</TableHead><TableHead>账户</TableHead><TableHead>状态</TableHead><TableHead>今日投递</TableHead><TableHead>失败率</TableHead></TableRow></TableHeader><TableBody>{[["Telegram", "@orange_support_bot", "可用", "4,201", "0.2%"], ["WhatsApp", "orange-support", "凭证失效", "2,140", "6.8%"], ["飞书", "客服转发群", "可用", "1,780", "0%"]].map((row) => (<TableRow key={row[0]}>{row.map((cell, index) => (<TableCell key={index}>{index === 2 ? <Badge className={cn("rounded-full border-transparent", cell === "可用" ? "bg-emerald-50 text-emerald-600" : "bg-red-50 text-red-600")}>{cell}</Badge> : cell}</TableCell>))}<TableCell className="text-right"><Button variant="ghost" size="sm">配置</Button></TableCell></TableRow>))}</TableBody></Table></CardContent></Card>
+            <Card className={v1CardClass}><CardHeader className="pb-4"><CardTitle>转发渠道</CardTitle><CardDescription>Web / 手机、Telegram、WhatsApp 等都是转发的出入口，由平台统一接入和投递。</CardDescription></CardHeader><CardContent className="p-0"><Table><TableHeader><TableRow><TableHead>渠道</TableHead><TableHead>账户</TableHead><TableHead>状态</TableHead><TableHead>今日投递</TableHead><TableHead>失败率</TableHead></TableRow></TableHeader><TableBody>{[["Web / 手机", "客服聚合端 · iOS / Android", "可用", "8,142", "0.2%"], ["Telegram", "@orange_support_bot", "可用", "4,201", "0.2%"], ["WhatsApp", "orange-support", "凭证失效", "2,140", "6.8%"], ["飞书", "客服转发群", "可用", "1,780", "0%"]].map((row) => (<TableRow key={row[0]}>{row.map((cell, index) => (<TableCell key={index}>{index === 2 ? <Badge className={cn("rounded-full border-transparent", cell === "可用" ? "bg-emerald-50 text-emerald-600" : "bg-red-50 text-red-600")}>{cell}</Badge> : cell}</TableCell>))}<TableCell className="text-right"><Button variant="ghost" size="sm">配置</Button></TableCell></TableRow>))}</TableBody></Table></CardContent></Card>
           )}
 
           {activePage === "ai" && (

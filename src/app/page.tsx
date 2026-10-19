@@ -35,6 +35,7 @@ const roleGroups = [
     description: "管理 AI 策略、权限、租户设置和跨角色能力。",
     items: [
       { href: "/ai", title: "AI 客服", description: "配置自动回复、忽略和转人工策略。", version: "v1" },
+      { href: "/iam", title: "IAM 管理", description: "管理员工、角色、服务凭证和终端会话授权。", version: "v1" },
       { href: "/settings", title: "设置", description: "维护租户信息、权限角色和基础参数。", version: "v1" },
       { href: "/v2", title: "V2 总览", description: "查看 V2 智能工作台和核心入口。", version: "v2" },
       { href: "/v2/employee", title: "AI 客服员工", description: "配置人设、账号、自动回复和知识库。", version: "v2" },

@@ -11,6 +11,7 @@ import {
   MessageSquareMore,
   MessageSquare,
   NotebookPen,
+  ShieldCheck,
   Webhook,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -21,11 +22,17 @@ type NavItem = {
   label: string;
   icon: LucideIcon;
   version: "v1" | "v2";
-  group: "工作台" | "会话服务" | "AI 配置" | "流程控制" | "渠道与日志";
+  group: "工作台" | "平台管理" | "会话服务" | "AI 配置" | "流程控制" | "渠道与日志";
+  sub?: boolean;
 };
 
 const navItems: NavItem[] = [
   { href: "/v2", label: "V2 总览", icon: LayoutDashboard, version: "v2", group: "工作台" },
+  { href: "/iam", label: "团队管理", icon: ShieldCheck, version: "v1", group: "平台管理" },
+  { href: "/iam?tab=users", label: "员工", icon: ShieldCheck, version: "v1", group: "平台管理", sub: true },
+  { href: "/iam?tab=roles", label: "角色与权限", icon: ShieldCheck, version: "v1", group: "平台管理", sub: true },
+  { href: "/channel-access", label: "渠道接入", icon: Webhook, version: "v1", group: "平台管理" },
+  { href: "/audit", label: "审计日志", icon: Logs, version: "v1", group: "平台管理" },
   { href: "/conversations", label: "会话", icon: MessageSquareMore, version: "v1", group: "会话服务" },
   { href: "/chat", label: "聊天室", icon: MessageSquare, version: "v1", group: "会话服务" },
   { href: "/v2/chat", label: "V2 聊天室", icon: MessageSquare, version: "v2", group: "会话服务" },
@@ -38,7 +45,7 @@ const navItems: NavItem[] = [
   { href: "/logs", label: "消息日志", icon: Logs, version: "v1", group: "渠道与日志" },
 ];
 
-const groups: NavItem["group"][] = ["工作台", "会话服务", "AI 配置", "流程控制", "渠道与日志"];
+const groups: NavItem["group"][] = ["工作台", "平台管理", "会话服务", "AI 配置", "流程控制", "渠道与日志"];
 
 export function V2Shell({
   activeHref,
@@ -74,13 +81,14 @@ export function V2Shell({
               <div className="space-y-1">
                 {navItems.filter((item) => item.group === group).map((item) => {
                   const Icon = item.icon;
-                  const active = item.href === activeHref || activeHref.startsWith(`${item.href}/`);
+                  const active = item.href === activeHref || activeHref.startsWith(`${item.href}/`) || activeHref.startsWith(`${item.href}?`);
                   return (
                     <Link
                       key={item.href}
                       href={item.href}
                       className={cn(
-                        "flex h-10 items-center gap-3 rounded-xl px-3 text-sm transition-all",
+                        "flex items-center gap-3 rounded-xl text-sm transition-all",
+                        item.sub ? "h-8 pl-10 pr-3 text-[13px]" : "h-10 px-3",
                         active
                           ? "bg-slate-950 font-medium text-white shadow-sm"
                           : "text-slate-600 hover:bg-slate-100 hover:text-slate-950"
